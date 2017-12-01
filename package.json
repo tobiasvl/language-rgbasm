@@ -1,7 +1,7 @@
 {
   "name": "language-rgbasm",
   "version": "0.1.0",
-  "description": "RGBASM language support in Atom",
+  "description": "RGBASM language support in Atom (Rednex Game Boy Assembly)",
   "keywords": [],
   "repository": "https://github.com/tobiasvl/language-rgbasm",
   "license": "MIT",

@@ -13,7 +13,7 @@
     'captures':
       '2':
         'name': 'variable.language.register.8-bit.rgbasm'
-    'match': '(,|\\s*)?\\b(?i:(a|b|c|d|e|h|l))\\b'
+    'match': '(,|\\s*)?(?<!\\.)\\b(?i:(a|b|c|d|e|h|l))\\b(?!\\.)'
     'name': 'meta.register.8-bit.rgbasm'
   }
   {
@@ -42,7 +42,7 @@
     'name': 'comment.line.semicolon.rgbasm'
   }
   {
-    'match': '\\s*\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)?|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
+    'match': '(^|\\s*|\\:)\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b\\s'
     'name': 'keyword.other.mnemonic.rgbasm'
   }
   {
@@ -91,7 +91,7 @@
     'name': 'storage.type.section.rgbasm'
   }
   {
-    'match': '\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
+    'match': '\\s*\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
     'name': 'storage.modifier.section.rgbasm'
   }
   {
@@ -121,8 +121,10 @@
         'name': 'keyword.operator.label.scope.rgbasm'
       '4':
         'name': 'entity.name.function.label.rgbasm'
-    'match': '\\s*(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)\\b(?!\\:)'
-    'name': 'entity.name.label.identifier.rgbasm'
+      '5':
+        'name': 'keyword.operator.label.definition.rgbasm'
+    'match': '^(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)\\s*[\\:{0,2}\\s]'
+    'name': 'entity.name.label.definition.rgbasm'
   }
   {
     'captures':
@@ -132,10 +134,8 @@
         'name': 'keyword.operator.label.scope.rgbasm'
       '4':
         'name': 'entity.name.function.label.rgbasm'
-      '5':
-        'name': 'keyword.operator.label.definition.rgbasm'
-    'match': '^(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)\\s*(\\:{0,2})'
-    'name': 'entity.name.label.definition.rgbasm'
+    'match': '\\s*(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)(?![\\:\\.])\\b'
+    'name': 'entity.name.label.identifier.rgbasm'
   }
 #  {
 #    'match': '!|%|&amp;|\*|\-|\+|~|/|\^|==|=|!=|&lt;=|&gt;=|&lt;&gt;|&lt;|&gt;|&amp;    | endrelocate|inclabels|var|tvar|tempvar|varloc|dvar|struct|db|byte|text|dw|word|incbin|rlemode
