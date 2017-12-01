@@ -38,7 +38,10 @@
     'name': 'support.constant.rgbasm'
   }
   {
-    'match': ';.*$'
+    'captures':
+      '1':
+        'name': 'punctuation.definition.comment.rgbasm'
+    'match': '(;).*$'
     'name': 'comment.line.semicolon.rgbasm'
   }
   {
@@ -60,11 +63,11 @@
   }
   {
     'match': '\\b[0-9]+\\b'
-    'name': 'constant.numeric.decimal.rgbasm'
+    'name': 'constant.numeric.integer.rgbasm'
   }
   {
     'match': '\\$[0-9a-fA-F]+'
-    'name': 'constant.numeric.hexadecimal.rgbasm'
+    'name': 'constant.numeric.hex.rgbasm'
   }
   {
     'match': '%[01]+'
@@ -76,7 +79,7 @@
   }
   {
     'match': '`[0-3]+'
-    'name': 'constant.numeric.graphics.rgbasm'
+    'name': 'constant.other.graphics.rgbasm'
   }
   {
     'match': '[0-9]\\.[0-9]'
