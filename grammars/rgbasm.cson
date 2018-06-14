@@ -6,9 +6,10 @@
   'gb.s'
   's'
 ]
-'name': 'RGBDS Assembly'
+'name': 'RGBDS Assembly (DEV)'
 'scopeName': 'source.asm.rgbasm'
 'patterns': [
+  # 8-bit registers
   {
     'captures':
       '2':
@@ -16,6 +17,7 @@
     'match': '(,|\\s*)?(?<!\\.)\\b(?i:(a|b|c|d|e|h|l))\\b(?!\\.)'
     'name': 'meta.register.8-bit.rgbasm'
   }
+  # 16-bit registers
   {
     'captures':
       '2':
@@ -29,14 +31,17 @@
     'match': '(,)?\\s*\\b(?i:(af|sp|(\\[?(bc|de|hl(\\+|-|i|d)?)\\]?)))\\b,?'
     'name': 'meta.register.16-bit.rgbasm'
   }
+  # RGBDS functions
   {
     'match': '\\s*\\b(?i:STR(LEN|CAT|CMP|IN|SUB|UPR|LWR)|BANK|DEF|HIGH|LOW|FUNC|DIV|MUL|A?(SIN|COS|TAN2?))(?=\\()\\b'
     'name': 'support.function.rgbasm'
   }
+  # RGBDS assembler constants
   {
     'match': '_(?i:PI|RS|NARG|_LINE__|_FILE__|_DATE__|_TIME__|_ISO_8601_LOCAL__|_ISO_8601_UTC__|_UTC_YEAR__|_UTC_MONTH__|_UTC_DAY__|_UTC_HOUR__|_UTC_MINUTE__|_UTC_SECOND__|_RGBDS_MAJOR__|_RGBDS_MINOR__|_RGBDS_PATCH__)'
     'name': 'support.constant.rgbasm'
   }
+  # comments
   {
     'captures':
       '1':
@@ -44,10 +49,12 @@
     'match': '(;).*$'
     'name': 'comment.line.semicolon.rgbasm'
   }
+  # opcodes
   {
     'match': '(^|\\s*|\\:)\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b\\s'
     'name': 'keyword.other.mnemonic.rgbasm'
   }
+  # subroutine calls
   {
     'captures':
       '1':
@@ -57,46 +64,57 @@
     'match': '\\s*(?i:(j(p|r)|call|reti?))(\\s+(?i:(n?(z|c))))?\\b'
     'name': 'meta.branch.rgbasm'
   }
+  # braces
   {
     'match': '(\\[|\\])'
     'name': 'meta.brace.square.rgbasm'
   }
+  # decimal numbers
   {
     'match': '\\b[0-9]+\\b'
     'name': 'constant.numeric.integer.rgbasm'
   }
+  # hex numbers
   {
     'match': '\\$[0-9a-fA-F]+'
     'name': 'constant.numeric.hex.rgbasm'
   }
+  # binary numbers
   {
     'match': '%[01]+'
     'name': 'constant.numeric.binary.rgbasm'
   }
+  # octal numbers
   {
     'match': '&[0-7]+'
     'name': 'constant.numeric.octal.rgbasm'
   }
+  # graphics
   {
     'match': '`[0-3]+'
     'name': 'constant.other.graphics.rgbasm'
   }
+  # float numbers
   {
     'match': '[0-9]\\.[0-9]'
     'name': 'constant.numberic.fixpoint.rgbasm'
   }
+  # assembler directives
   {
     'match': '\\s*\\b(?i:MACRO|ENDM|IF|ELIF|ELSE|ENDC|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
     'name': 'keyword.other.directive.rgbasm'
   }
+  # section directive
   {
     'match': '\\s*\\bSECTION\\b'
     'name': 'storage.type.section.rgbasm'
   }
+  # section base directives
   {
     'match': '\\s*\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
     'name': 'storage.modifier.section.rgbasm'
   }
+  # strings
   {
     'begin': '"'
     'beginCaptures':
@@ -116,6 +134,7 @@
       }
     ]
   }
+  # global labels?
   {
     'captures':
       '2':
@@ -129,6 +148,7 @@
     'match': '^(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)\\s*[\\:{0,2}\\s]'
     'name': 'entity.name.label.definition.rgbasm'
   }
+  # local labels?
   {
     'captures':
       '2':
@@ -140,9 +160,9 @@
     'match': '\\s*(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)(?![\\:\\.])\\b'
     'name': 'entity.name.label.identifier.rgbasm'
   }
-#  {
-#    'match': '!|%|&amp;|\*|\-|\+|~|/|\^|==|=|!=|&lt;=|&gt;=|&lt;&gt;|&lt;|&gt;|&amp;    | endrelocate|inclabels|var|tvar|tempvar|varloc|dvar|struct|db|byte|text|dw|word|incbin|rlemode
-# &amp;|\|\||\||\.?'
-#    'name': 'keyword.operator.rgbasm'
-#  }
+  # operators
+  {
+    'match':  '|\\~|\\+|\\-|\\*|\\/|\\%|<<|>>|\\&|\\||\\^|(!|=|<|>)=|!'
+    'name':   'keyword.operator.rgbasm'
+  }
 ]
