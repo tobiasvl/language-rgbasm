@@ -94,6 +94,21 @@ repository:
         match: '\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
         name: 'keyword.mnemonic.rgbasm'
       }
+      # global labels
+      {
+        captures:
+          1: name: 'entity.name.function.label.rgbasm'
+          2: name: 'entity.name.function.label.rgbasm'
+        match: '^([a-zA-Z_][a-zA-Z0-9_\\@\\.]*?)(::?)?\\s+'
+      }
+      # local labels
+      {
+        captures:
+          1: name: 'entity.name.function.label.rgbasm'
+          2: name: 'entity.name.function.label.rgbasm'
+        match: '^(\\.[a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
+      }
+      # local labels
   #     # ca65 pseudo variables
   #     {
   #       match:  '(\\.)\\b(?i:\\*|asize|cpu|isize|paramcount|time|version)\\b'
