@@ -79,10 +79,16 @@ repository:
   # assembler directives
   directives:
     patterns: [
-      # registers
-      # {
-
-      # }
+      # 8-bit registers
+      {
+        match: '\\b(?i:[abcdehl])\\b'
+        name: 'storage.other.register.8-bit.rgbasm'
+      }
+      # 16-bit registers
+      {
+        match: '\\b(?i:af|sp|bc|de|hl[\\+\\-id]?)\\b'
+        name: 'storage.other.register.16-bit.rgbasm'
+      }
       # RGBDS builtin functions
       {
         match: '\\b(?i:STR(LEN|CAT|CMP|IN|SUB|UPR|LWR)|BANK|DEF|HIGH|LOW|FUNC|DIV|MUL|A?(SIN|COS|TAN2?))(?=\\()\\b'
@@ -95,7 +101,7 @@ repository:
       }
       # if elif else
       {
-        match: '\\b(?i:(EL)?IF|ELSE|EMDC)\\b'
+        match: '\\b(?i:(EL)?IF|ELSE|EMDC|n?[zc])\\b'
         name: 'keyword.control.conditional.rgbasm'
       }
       # RGBDS assembler constants
@@ -110,7 +116,7 @@ repository:
       }
       # opcodes
       {
-        match: '\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
+        match: '\\b(?i:j[pr]|call|reti?|ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
         name: 'keyword.mnemonic.rgbasm'
       }
       # braces
@@ -137,5 +143,4 @@ repository:
           2: name: 'entity.name.function.label.rgbasm'
         match: '^(\\.[a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
       }
-      # local labels
     ]

@@ -30,13 +30,13 @@
     'name': 'string.quoted.double.rgbasm'
   }
   # 8-bit registers
-  # {
-  #   'captures':
-  #     '2':
-  #       'name': 'variable.language.register.8-bit.rgbasm'
-  #   'match': '(,|\\s*)?(?<!\\.)\\b(?i:(a|b|c|d|e|h|l))\\b(?!\\.)'
-  #   'name': 'meta.register.8-bit.rgbasm'
-  # }
+  {
+    'captures':
+      '2':
+        'name': 'variable.language.register.8-bit.rgbasm'
+    'match': '(,|\\s*)?(?<!\\.)\\b(?i:(a|b|c|d|e|h|l))\\b(?!\\.)'
+    'name': 'meta.register.8-bit.rgbasm'
+  }
   # 16-bit registers
   # {
   #   'captures':
@@ -48,7 +48,7 @@
   #       'name': 'variable.language.register.16-bit.rgbasm'
   #     '5':
   #       'name': 'keyword.operator.increment-decrement.rgbasm'
-  #   'match': '(,)?\\s*\\b(?i:(af|sp|(\\[?(bc|de|hl(\\+|-|i|d)?)\\]?)))\\b,?'
+    'match': '(,)?\\s*\\b(?i:(af|sp|(\\[?(bc|de|hl(\\+|-|i|d)?)\\]?)))\\b,?'
   #   'name': 'meta.register.16-bit.rgbasm'
   # }
   # RGBDS functions
@@ -113,10 +113,10 @@
   # }
   # assembler directives
   # TODO: Split macro, conditional, and rest
-  {
-    'match': '\\b(?i:MACRO|ENDM|IF|ELIF|ELSE|ENDC|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
-    'name': 'support.function.pseudo.rgbasm'
-  }
+  # {
+  #   'match': '\\b(?i:MACRO|ENDM|IF|ELIF|ELSE|ENDC|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
+  #   'name': 'support.function.pseudo.rgbasm'
+  # }
   # section directive
   {
     'match': '\\b(?i:SECTION)\\b'
