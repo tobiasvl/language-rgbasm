@@ -1,4 +1,7 @@
-'fileTypes': [
+# Syntax Highlighting for the RGBDS toolchain
+
+scopeName: 'source.rgbasm'
+fileTypes: [
   # http://www.devrs.com/gb/files/guide.txt
   'z80'
   'inc'
@@ -6,175 +9,138 @@
   'gb.s'
   's'
 ]
-'name': 'RGBDS Assembly (OLD)'
-'scopeName': 'source.asm.rgbasm'
-'patterns': [
-  # comments
-  {
-    # 'captures':
-    #   '1':
-    #     'name': 'punctuation.definition.comment.rgbasm'
-    'match': ';.*$'
-    'name': 'comment.line.semicolon.rgbasm'
-  }
-  # strings
-  {
-    'begin': '"'
-    'beginCaptures':
-      '0':
-        'name': 'punctuation.definition.string.begin.rgbasm'
-    'end': '"'
-    'endCaptures':
-      '0':
-        'name': 'punctuation.definition.string.end.rgbasm'
-    'name': 'string.quoted.double.rgbasm'
-  }
-  # 8-bit registers
-  {
-    'captures':
-      '2':
-        'name': 'variable.language.register.8-bit.rgbasm'
-    'match': '(,|\\s*)?(?<!\\.)\\b(?i:(a|b|c|d|e|h|l))\\b(?!\\.)'
-    'name': 'meta.register.8-bit.rgbasm'
-  }
-  # 16-bit registers
-  # {
-  #   'captures':
-  #     '2':
-  #       'name': 'variable.language.register.16-bit.rgbasm'
-  #     '3':
-  #       'name': 'meta.brace.square.rgbasm'
-  #     '4':
-  #       'name': 'variable.language.register.16-bit.rgbasm'
-  #     '5':
-  #       'name': 'keyword.operator.increment-decrement.rgbasm'
-    'match': '(,)?\\s*\\b(?i:(af|sp|(\\[?(bc|de|hl(\\+|-|i|d)?)\\]?)))\\b,?'
-  #   'name': 'meta.register.16-bit.rgbasm'
-  # }
-  # RGBDS functions
-  {
-    'match': '\\b(?i:STR(LEN|CAT|CMP|IN|SUB|UPR|LWR)|BANK|DEF|HIGH|LOW|FUNC|DIV|MUL|A?(SIN|COS|TAN2?))(?=\\()\\b'
-    'name': 'support.function.pseudo.rgbasm'
-  }
-  # RGBDS assembler constants
-  {
-    'match': '_(?i:PI|RS|NARG|_LINE__|_FILE__|_DATE__|_TIME__|_ISO_8601_LOCAL__|_ISO_8601_UTC__|_UTC_YEAR__|_UTC_MONTH__|_UTC_DAY__|_UTC_HOUR__|_UTC_MINUTE__|_UTC_SECOND__|_RGBDS_MAJOR__|_RGBDS_MINOR__|_RGBDS_PATCH__)'
-    'name': 'constant.language.rgbasm'
-  }
-  # opcodes
-  {
-    'match': '(^|\\s*|\\:)\\b(?i:ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b\\s'
-    'name': 'keyword.mnemonic.rgbasm'
-  }
-  # subroutine calls
-  {
-    'captures':
-      '1':
-        'name': 'keyword.mnemonic.rgbasm'
-      '4':
-        'name': 'keyword.control.condition.rgbasm'
-    'match': '\\s*(?i:(j(p|r)|call|reti?))(\\s+(?i:(n?(z|c))))?\\b'
-    'name': 'meta.branch.rgbasm'
-  }
-  # braces
-  {
-    'match': '(\\[|\\])'
-    'name': 'meta.brace.square.rgbasm'
-  }
-  # decimal numbers
-  # {
-  #   'match': '\\b[0-9]+\\b'
-  #   'name': 'constant.numeric.integer.rgbasm'
-  # }
-  # hex numbers
-  # {
-  #   'match': '\\$[0-9a-fA-F]+'
-  #   'name': 'constant.numeric.hex.rgbasm'
-  # }
-  # binary numbers
-  # {
-  #   'match': '%[01]+'
-  #   'name': 'constant.numeric.binary.rgbasm'
-  # }
-  # # octal numbers
-  # {
-  #   'match': '&[0-7]+'
-  #   'name': 'constant.numeric.octal.rgbasm'
-  # }
-  # # graphics
-  # {
-  #   'match': '`[0-3]+'
-  #   'name': 'constant.other.graphics.rgbasm'
-  # }
-  # float numbers
-  # {
-  #   'match': '[0-9]\\.[0-9]'
-  #   'name': 'constant.numberic.fixpoint.rgbasm'
-  # }
-  # assembler directives
-  # TODO: Split macro, conditional, and rest
-  # {
-  #   'match': '\\b(?i:MACRO|ENDM|IF|ELIF|ELSE|ENDC|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
-  #   'name': 'support.function.pseudo.rgbasm'
-  # }
-  # section directive
-  {
-    'match': '\\b(?i:SECTION)\\b'
-    'name': 'storage.type.section.rgbasm'
-  }
-  # section base directives
-  {
-    'match': '\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
-    'name': 'constant.language.rgbasm'
-  }
-  # {
-  #   'begin': '"'
-  #   'beginCaptures':
-  #     '0':
-  #       'name': 'punctuation.definition.string.begin.rgbasm'
-  #   'end': '"'
-  #   'endCaptures':
-  #     '0':
-  #       'name': 'punctuation.definition.string.end.rgbasm'
-  #   'name': 'string.quoted.double.rgbasm'
-  #   'patterns': [
-  #     {
-  #       'include': '#string_escaped_char'
-  #     }
-  #     {
-  #       'include': '#string_placeholder'
-  #     }
-  #   ]
-  # }
-  # global labels?
-  {
-    'captures':
-      '2':
-        'name': 'entity.name.function.label.global.rgbasm'
-      '3':
-        'name': 'keyword.operator.label.scope.rgbasm'
-      '4':
-        'name': 'entity.name.function.label.rgbasm'
-      '5':
-        'name': 'keyword.operator.label.definition.rgbasm'
-    'match': '^(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)\\s*[\\:{0,2}\\s]'
-    'name': 'entity.name.label.definition.rgbasm'
-  }
-  # local labels?
-  {
-    'captures':
-      '2':
-        'name': 'entity.name.function.label.global.rgbasm'
-      '3':
-        'name': 'keyword.operator.label.scope.rgbasm'
-      '4':
-        'name': 'entity.name.function.label.rgbasm'
-    'match': '\\s*(([a-zA-Z_][a-zA-Z_0-9\\@]*)?(\\.))?([a-zA-Z_][a-zA-Z_0-9\\@]*)(?![\\:\\.])\\b'
-    'name': 'entity.name.label.identifier.rgbasm'
-  }
-  # operators
-  {
-    'match':  '|\\~|\\+|\\-|\\*|\\/|\\%|<<|>>|\\&|\\||\\^|(!|=|<|>)=|!'
-    'name':   'keyword.operator.rgbasm'
-  }
+name: 'RGBDS Assembly'
+patterns: [
+  { include: '#comments' }   # comments
+  { include: '#symbols' }    # labels, constants, numbers
+  { include: '#directives' } # RGBDS assembler directives
 ]
+
+# Repository starts here ------------------------------------------------------
+repository:
+
+  # comments
+  comments:
+    patterns: [
+      # semicolon comments
+      {
+        match:  ';.*$'
+        name:   'comment.line.semicolon.rgbasm'
+      }
+    ]
+
+  # symbols
+  symbols:
+    patterns: [
+      # strings
+      {
+        begin: '"'
+        beginCaptures:
+          0:
+            name: 'punctuation.definition.string.begin.rgbasm'
+        end: '"'
+        endCaptures:
+          0:
+            name: 'punctuation.definition.string.end.rgbasm'
+        name: 'string.quoted.double.rgbasm'
+      }
+      # float numbers
+      {
+        match: '\\b[0-9]\\.[0-9]\\b'
+        name: 'constant.numberic.fixpoint.rgbasm'
+      }
+      # graphics
+      {
+        match: '`[0-3]+'
+        name: 'constant.other.graphics.rgbasm'
+      }
+      # hex, prefixed with dollar sign($)
+      {
+        match: '\\$\\b[a-fA-F0-9]+\\b'
+        name: 'constant.numeric.hex.rgbasm'
+      }
+      # binary
+      {
+        match: '%\\b[01]+\\b'
+        name: 'constant.numeric.binary.rgbasm'
+      }
+      # decimal
+      {
+        match: '\\b([0-9]+)\\b'
+        name: 'constant.numeric.decimal.rgbasm'
+      }
+      # octal
+      {
+        match: '&\\b[0-7]+\\b'
+        name: 'constant.numeric.octal.rgbasm'
+      }
+    ]
+
+  # assembler directives
+  directives:
+    patterns: [
+      # 8-bit registers
+      {
+        match: '\\b(?i:[abcdehl])\\b'
+        name: 'storage.other.register.8-bit.rgbasm'
+      }
+      # 16-bit registers
+      {
+        match: '\\b(?i:af|sp|bc|de|hl[\\+\\-id]?)\\b'
+        name: 'storage.other.register.16-bit.rgbasm'
+      }
+      # RGBDS builtin functions
+      {
+        match: '\\b(?i:STR(LEN|CAT|CMP|IN|SUB|UPR|LWR)|BANK|DEF|HIGH|LOW|FUNC|DIV|MUL|A?(SIN|COS|TAN2?))(?=\\()\\b'
+        name: 'support.function.rgbasm'
+      }
+      # assembler directives
+      {
+        match: '\\b(?i:MACRO|ENDM|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SECTION|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
+        name: 'support.function.pseudo.rgbasm'
+      }
+      # if elif else
+      {
+        match: '\\b(?i:(EL)?IF|ELSE|EMDC|n?[zc])\\b'
+        name: 'keyword.control.conditional.rgbasm'
+      }
+      # RGBDS assembler constants
+      {
+        match: '_\\b(?i:PI|RS|NARG|_LINE__|_FILE__|_DATE__|_TIME__|_ISO_8601_LOCAL__|_ISO_8601_UTC__|_UTC_YEAR__|_UTC_MONTH__|_UTC_DAY__|_UTC_HOUR__|_UTC_MINUTE__|_UTC_SECOND__|_RGBDS_MAJOR__|_RGBDS_MINOR__|_RGBDS_PATCH__)\\b'
+        name: 'constant.language.rgbasm'
+      }
+      # section base directives
+      {
+        match: '\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
+        name: 'constant.language.rgbasm'
+      }
+      # opcodes
+      {
+        match: '\\b(?i:j[pr]|call|reti?|ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
+        name: 'keyword.mnemonic.rgbasm'
+      }
+      # braces
+      {
+        match: '(\\[|\\])'
+        name: 'meta.brace.square.rgbasm'
+      }
+      # operators
+      {
+        match: '\\~|\\+|\\-|\\*|\\/|\\%|<<?|>>?|\\&|\\||\\^|(!|=|<|>)=|!'
+        name: 'keyword.operator.rgbasm'
+      }
+      # global labels
+      {
+        captures:
+          1: name: 'entity.name.function.label.rgbasm'
+          2: name: 'entity.name.function.label.rgbasm'
+        match: '^([a-zA-Z_][a-zA-Z0-9_\\@\\.]*?)(::?)?\\s+'
+      }
+      # local labels
+      {
+        captures:
+          1: name: 'entity.name.function.label.rgbasm'
+          2: name: 'entity.name.function.label.rgbasm'
+        match: '^(\\.[a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
+      }
+    ]
