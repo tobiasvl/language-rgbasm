@@ -11,8 +11,8 @@ fileTypes: [
 ]
 name: 'RGBDS Assembly'
 patterns: [
-  { include: '#comments' }   # comments
-  { include: '#symbols' }    # labels, constants, numbers
+  { include: '#comments' } # comments
+  { include: '#symbols' } # labels, constants, numbers
   { include: '#directives' } # RGBDS assembler directives
 ]
 
@@ -24,8 +24,8 @@ repository:
     patterns: [
       # semicolon comments
       {
-        match:  ';.*$'
-        name:   'comment.line.semicolon.rgbasm'
+        match: ';.*$'
+        name: 'comment.line.semicolon.rgbasm'
       }
     ]
 
@@ -96,7 +96,8 @@ repository:
       }
       # assembler directives
       {
-        match: '\\b(?i:MACRO|ENDM|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SECTION|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
+        match: '\\b(?i:MACRO|ENDM|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
+        # match: '\\b(?i:MACRO|ENDM|REPT|ENDR|DB|DW|DS|INCLUDE|INCBIN|EQUS?|SECTION|SET|RSSET|RSRESET|RB|RW|RL|EXPORT|GLOBAL|PURGE|SHIFT|UNION|NEXTU|ENDU|PRINTT|PRINTV|PRINTF|FAIL|WARN|OPT|PUSHS|POPS|PUSHO|POPO|OPT)\\b'
         name: 'support.function.pseudo.rgbasm'
       }
       # if elif else
@@ -109,38 +110,76 @@ repository:
         match: '_\\b(?i:PI|RS|NARG|_LINE__|_FILE__|_DATE__|_TIME__|_ISO_8601_LOCAL__|_ISO_8601_UTC__|_UTC_YEAR__|_UTC_MONTH__|_UTC_DAY__|_UTC_HOUR__|_UTC_MINUTE__|_UTC_SECOND__|_RGBDS_MAJOR__|_RGBDS_MINOR__|_RGBDS_PATCH__)\\b'
         name: 'constant.language.rgbasm'
       }
-      # section base directives
+      # section command
       {
-        match: '\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
-        name: 'constant.language.rgbasm'
+        begin: '\\b((?i:section))\\b'
+        captures:
+          1: name: 'support.function.pseudo.rgbasm'
+        end: '$'
+        name: 'meta.directives.section.rgbasm'
+        patterns: [
+          # section base directives
+          {
+            match: '\\b(ROM0|ROMX|VRAM|SRAM|WRAM0|WRAMX|OAM|HRAM|ALIGN|BANK|HOME|BSS)\\b'
+            name: 'constant.language.rgbasm'
+          }
+          # hex numbers, strings
+          { include: '#symbols' }
+          # comments
+          { include: '#comments' }
+        ]
       }
       # opcodes
       {
         match: '\\b(?i:j[pr]|call|reti?|ld(i|d|h)?|push|pop|ad(d|c)|sub|sbc|and|x?or|cp|inc|dec|daa|cpl|rlca|rla|rrca|rra|rlc|rl|rrc|rr|sla|swap|sra|srl|bit|res|set|ccf|scf|nop|halt|stop|di|ei|rst)\\b'
         name: 'keyword.mnemonic.rgbasm'
       }
-      # braces
-      {
-        match: '(\\[|\\])'
-        name: 'meta.brace.square.rgbasm'
-      }
       # operators
       {
         match: '\\~|\\+|\\-|\\*|\\/|\\%|<<?|>>?|\\&|\\||\\^|(!|=|<|>)=|!'
         name: 'keyword.operator.rgbasm'
       }
-      # global labels
+      ##### LABELS
+      # global labels with colored colons
       {
         captures:
           1: name: 'entity.name.function.label.rgbasm'
-          2: name: 'entity.name.function.label.rgbasm'
-        match: '^([a-zA-Z_][a-zA-Z0-9_\\@\\.]*?)(::?)?\\s+'
+          2: name: 'keyword.operator.label.scope.rgbasm'
+          3: name: 'entity.name.function.label.rgbasm'
+        match: '^([a-zA-Z_][a-zA-Z0-9_\\@]*?)(\\.)?([a-zA-Z_][a-zA-Z0-9_\\@]*?)?(::?)?\\s+'
       }
-      # local labels
+      # local labels with colored colons
       {
         captures:
-          1: name: 'entity.name.function.label.rgbasm'
+          1: name: 'keyword.operator.label.scope.rgbasm'
           2: name: 'entity.name.function.label.rgbasm'
-        match: '^(\\.[a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
+        match: '^(\\.)([a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
       }
+      # # global labels
+      # {
+      #   captures:
+      #     1: name: 'entity.name.function.label.rgbasm'
+      #     2: name: 'entity.name.function.label.rgbasm'
+      #   match: '^([a-zA-Z_][a-zA-Z0-9_\\@\\.]*?)(::?)?\\s+'
+      # }
+      # # local labels
+      # {
+      #   captures:
+      #     1: name: 'entity.name.function.label.rgbasm'
+      #     2: name: 'entity.name.function.label.rgbasm'
+      #   match: '^(\\.[a-zA-Z_][a-zA-Z0-9_\\@]*?)(:)?\\s+'
+      # }
+      ##### INLINE LABELS
+      # # inline labels in []
+      # {
+      #   captures:
+      #     2: name: 'entity.name.function.label.rgbasm'
+      #   match: '(\\[)(.*?)(\\])'
+      # }
+      ##### WARNING: This is buggy and will cause illegal labels to highlight
+      #  # other inline labels
+      # {
+      #   match: '(?!^)\\b(\\.?[a-zA-Z_][a-zA-Z0-9_\\@]*)\\b'
+      #   name: 'entity.name.function.label.rgbasm'
+      # }
     ]
