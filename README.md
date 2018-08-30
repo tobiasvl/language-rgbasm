@@ -24,5 +24,6 @@ Please open an issue to report something. Pull requests are more than welcome.
 This grammar was inspired by other related grammars, but focuses on coverage of RGBASM, including features from newer versions of RGBDS.
 
 * https://github.com/Bananattack/rgbds_textmate – RGBASM grammar for TextMate
+* https://github.com/DonaldHays/rgbds-vscode/blob/master/syntaxes/rgbds-asm.tmLanguage - RGBASM grammar for VSCode
 * https://atom.io/packages/language-gb – TASM grammar for Atom
 * https://atom.io/packages/language-z80asm – generic Z80 grammar for Atom
